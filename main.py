@@ -27,6 +27,9 @@ from PyQt5.QtCore import Qt
 from screeninfo import get_monitors
 
 from methods.TrigonometricLevelling import TrigonometricLevelling
+from methods.PolarMethod import PolarMethod
+
+
 
 class Menu(QWidget):
 
@@ -40,6 +43,11 @@ class Menu(QWidget):
         self.w = TrigonometricLevelling()
         self.w.show()
 
+    def OpenPolarMethod(self, checked):
+        self.hide()
+        self.w = PolarMethod()
+        self.w.show()
+
     def interface(self):
 
         for m in get_monitors():
@@ -50,8 +58,9 @@ class Menu(QWidget):
         grid.addWidget(GeometricLevellingButton,0,0)
         GeometricLevellingButton.clicked.connect(self.OpenGeometricLevelling)
 
-        TotalStation = QPushButton("Total station measurements")
-        grid.addWidget(TotalStation, 0, 1)
+        PolarMethodButton = QPushButton("Polar method")
+        grid.addWidget(PolarMethodButton, 0, 1)
+        PolarMethodButton.clicked.connect(self.OpenPolarMethod)
 
 
 

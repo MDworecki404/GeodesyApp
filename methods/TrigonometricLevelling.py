@@ -1,3 +1,6 @@
+import subprocess
+import sys
+
 from PyQt5 import Qt, QtCore
 from PyQt5.QtWidgets import (
     QApplication,
@@ -33,6 +36,9 @@ class TrigonometricLevelling(QWidget):
 
         self.interface()
 
+    def OpenMenu(self):
+        subprocess.Popen([sys.executable, "./main.py"])
+        self.close()
 
     def interface(self):
         for m in get_monitors():
@@ -41,9 +47,7 @@ class TrigonometricLevelling(QWidget):
 
         GoBack = QPushButton('Menu')
         grid.addWidget(GoBack, 0, 0)
-
-
-
+        GoBack.clicked.connect(self.OpenMenu)
 
         # First row
         StationPoint = QLineEdit()
@@ -63,13 +67,12 @@ class TrigonometricLevelling(QWidget):
         grid.addWidget(PrismHeight, 1, 3)
 
         CalculateButton = QPushButton('Calculate')
-        grid.addWidget(CalculateButton,3,3)
+        grid.addWidget(CalculateButton, 3, 3)
         addNewRowButton = QPushButton('Add row')
-        grid.addWidget(addNewRowButton, 3,0)
+        grid.addWidget(addNewRowButton, 3, 0)
 
         table = QTableWidget()
         table.setColumnCount(4)
-        tableWidth = table.width()
         table.setColumnWidth(0, 220)
         table.setColumnWidth(1, 220)
         table.setColumnWidth(2, 220)
@@ -84,14 +87,21 @@ class TrigonometricLevelling(QWidget):
                 item = QTableWidgetItem()
                 item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
                 item.setFlags(item.flags() & ~QtCore.Qt.ItemIsSelectable)
-                table.setItem(row, columnCount-1, item)
+                table.setItem(row, columnCount - 1, item)
+
+        removeRowButton = QPushButton('Remove row')
+        grid.addWidget(removeRowButton, 3, 1)
+
+        def removeRow():
+            rowCount = table.rowCount()
+            if rowCount > 0:
+                table.removeRow(rowCount - 1)
 
         addNewRowButton.clicked.connect(addRow)
+        removeRowButton.clicked.connect(removeRow)
 
         table.setHorizontalHeaderLabels(['Point number', 'Vertical Angle', 'Horizontal distance', 'Point Height'])
         grid.addWidget(table, 2, 0, 1, 4)
-
-
 
         def Calculate():
             table_data = []
@@ -99,16 +109,15 @@ class TrigonometricLevelling(QWidget):
             InstH = float(InstrumentHeight.text())
             PrismH = float(PrismHeight.text())
 
-
             for row in range(table.rowCount()):
                 row_data = []
                 for column in range(table.columnCount()):
-                    item = table.item(row,column)
+                    item = table.item(row, column)
                     if item is not None:
                         cell_value = item.text()
                         row_data.append(cell_value)
                     else:
-                        QMessageBox.warning(None, 'Empty Cell','Cells cannot be empty')
+                        QMessageBox.warning(None, 'Empty Cell', 'Cells cannot be empty')
                         return
                 table_data.append(row_data)
                 if len(row_data) >= 3:
@@ -119,7 +128,6 @@ class TrigonometricLevelling(QWidget):
 
                     item = QTableWidgetItem(f'{str(Hp)}m')
                     table.setItem(row, 3, item)
-
 
         CalculateButton.clicked.connect(Calculate)
 
