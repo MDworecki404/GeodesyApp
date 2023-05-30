@@ -173,6 +173,9 @@ class PolarMethod(QWidget):
                     Ref2Hz = float(ReferencePoint2Hz.text())
                     Ref2Hd = float(ReferencePoint2Hd.text())
 
+                    PHz = float(row_data[1])
+                    PHd = float(row_data[2])
+
                     Azimuth_St_Ref1 = np.arctan((Ref1Y-StY)/(Ref1X-StX))
                     Azimuth_St_Ref1 = Azimuth_St_Ref1*180/np.pi
                     Azimuth_St_Ref1 = abs(Azimuth_St_Ref1*400/360)
@@ -199,14 +202,22 @@ class PolarMethod(QWidget):
                     elif (Ref2Y-StY) <= 0 and (Ref2X-StX) >= 0:
                         Azimuth_St_Ref2 = 400-Azimuth_St_Ref2
 
-                    print(Azimuth_St_Ref1)
-                    print(Azimuth_St_Ref2)
-
                     Azimuth0_St_Ref1 = Azimuth_St_Ref1 - Ref1Hz
                     Azimuth0_St_Ref2 = Azimuth_St_Ref2 - Ref2Hz
 
-                    print(Azimuth0_St_Ref1)
-                    print(Azimuth0_St_Ref2)
+                    Azimuth0_St_P = (Azimuth_St_Ref2+Azimuth0_St_Ref2)/2 + PHz
+                    Azimuth0_St_P = (Azimuth0_St_P*360/400)*np.pi/180
+
+                    Xp = StX + PHd*np.cos(Azimuth0_St_P)
+                    Yp = StY + PHd*np.sin(Azimuth0_St_P)
+
+                    item = QTableWidgetItem(f'{str(Xp)}m')
+                    table.setItem(row, 3, item)
+                    item2 = QTableWidgetItem(f'{str(Yp)}m')
+                    table.setItem(row, 4, item2)
+
+
+
 
 
         CalculateButton.clicked.connect(Calculate)
