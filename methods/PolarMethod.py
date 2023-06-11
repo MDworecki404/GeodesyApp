@@ -137,18 +137,18 @@ class PolarMethod(QWidget):
 
                 table.setItem(row, columnCount - 1, item)
                 table.setItem(row, columnCount - 2, item2)
+
         addNewRowButton.clicked.connect(addRow)
 
         def removeRow():
             rowCount = table.rowCount()
             if rowCount > 0:
                 table.removeRow(rowCount - 1)
-        removeRowButton.clicked.connect(removeRow)
 
+        removeRowButton.clicked.connect(removeRow)
 
         def Calculate():
             table_data = []
-
 
             for row in range(table.rowCount()):
                 row_data = []
@@ -176,49 +176,45 @@ class PolarMethod(QWidget):
                     PHz = float(row_data[1])
                     PHd = float(row_data[2])
 
-                    Azimuth_St_Ref1 = np.arctan((Ref1Y-StY)/(Ref1X-StX))
-                    Azimuth_St_Ref1 = Azimuth_St_Ref1*180/np.pi
-                    Azimuth_St_Ref1 = abs(Azimuth_St_Ref1*400/360)
+                    Azimuth_St_Ref1 = np.arctan((Ref1Y - StY) / (Ref1X - StX))
+                    Azimuth_St_Ref1 = Azimuth_St_Ref1 * 180 / np.pi
+                    Azimuth_St_Ref1 = abs(Azimuth_St_Ref1 * 400 / 360)
 
-                    if (Ref1Y-StY) >= 0 and (Ref1X-StX) >= 0:
+                    if (Ref1Y - StY) >= 0 and (Ref1X - StX) >= 0:
                         Azimuth_St_Ref1 = Azimuth_St_Ref1
-                    elif (Ref1Y-StY) >= 0 and (Ref1X-StX) <= 0:
-                        Azimuth_St_Ref1 = 200-Azimuth_St_Ref1
-                    elif (Ref1Y-StY) <= 0 and (Ref1X-StX) <= 0:
-                        Azimuth_St_Ref1 = 200+Azimuth_St_Ref1
-                    elif (Ref1Y-StY) <= 0 and (Ref1X-StX) >= 0:
-                        Azimuth_St_Ref1 = 400-Azimuth_St_Ref1
+                    elif (Ref1Y - StY) >= 0 and (Ref1X - StX) <= 0:
+                        Azimuth_St_Ref1 = 200 - Azimuth_St_Ref1
+                    elif (Ref1Y - StY) <= 0 and (Ref1X - StX) <= 0:
+                        Azimuth_St_Ref1 = 200 + Azimuth_St_Ref1
+                    elif (Ref1Y - StY) <= 0 and (Ref1X - StX) >= 0:
+                        Azimuth_St_Ref1 = 400 - Azimuth_St_Ref1
 
-                    Azimuth_St_Ref2 = np.arctan((Ref2Y-StY)/(Ref2X-StX))
-                    Azimuth_St_Ref2 = Azimuth_St_Ref2*180/np.pi
-                    Azimuth_St_Ref2 = abs(Azimuth_St_Ref2*400/360)
+                    Azimuth_St_Ref2 = np.arctan((Ref2Y - StY) / (Ref2X - StX))
+                    Azimuth_St_Ref2 = Azimuth_St_Ref2 * 180 / np.pi
+                    Azimuth_St_Ref2 = abs(Azimuth_St_Ref2 * 400 / 360)
 
-                    if (Ref2Y-StY) >= 0 and (Ref2X-StX) >= 0:
+                    if (Ref2Y - StY) >= 0 and (Ref2X - StX) >= 0:
                         Azimuth_St_Ref2 = Azimuth_St_Ref2
-                    elif (Ref2Y-StY) >= 0 and (Ref2X-StX) <= 0:
-                        Azimuth_St_Ref2 = 200-Azimuth_St_Ref2
-                    elif (Ref2Y-StY) <= 0 and (Ref2X-StX) <= 0:
-                        Azimuth_St_Ref2 = 200+Azimuth_St_Ref2
-                    elif (Ref2Y-StY) <= 0 and (Ref2X-StX) >= 0:
-                        Azimuth_St_Ref2 = 400-Azimuth_St_Ref2
+                    elif (Ref2Y - StY) >= 0 and (Ref2X - StX) <= 0:
+                        Azimuth_St_Ref2 = 200 - Azimuth_St_Ref2
+                    elif (Ref2Y - StY) <= 0 and (Ref2X - StX) <= 0:
+                        Azimuth_St_Ref2 = 200 + Azimuth_St_Ref2
+                    elif (Ref2Y - StY) <= 0 and (Ref2X - StX) >= 0:
+                        Azimuth_St_Ref2 = 400 - Azimuth_St_Ref2
 
                     Azimuth0_St_Ref1 = Azimuth_St_Ref1 - Ref1Hz
                     Azimuth0_St_Ref2 = Azimuth_St_Ref2 - Ref2Hz
 
-                    Azimuth0_St_P = (Azimuth_St_Ref2+Azimuth0_St_Ref2)/2 + PHz
-                    Azimuth0_St_P = (Azimuth0_St_P*360/400)*np.pi/180
+                    Azimuth0_St_P = (Azimuth_St_Ref2 + Azimuth0_St_Ref2) / 2 + PHz
+                    Azimuth0_St_P = (Azimuth0_St_P * 360 / 400) * np.pi / 180
 
-                    Xp = StX + PHd*np.cos(Azimuth0_St_P)
-                    Yp = StY + PHd*np.sin(Azimuth0_St_P)
+                    Xp = StX + PHd * np.cos(Azimuth0_St_P)
+                    Yp = StY + PHd * np.sin(Azimuth0_St_P)
 
                     item = QTableWidgetItem(f'{str(Xp)}m')
                     table.setItem(row, 3, item)
                     item2 = QTableWidgetItem(f'{str(Yp)}m')
                     table.setItem(row, 4, item2)
-
-
-
-
 
         CalculateButton.clicked.connect(Calculate)
 

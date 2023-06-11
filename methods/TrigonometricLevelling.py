@@ -121,7 +121,7 @@ class TrigonometricLevelling(QWidget):
                         return
                 table_data.append(row_data)
                 if len(row_data) >= 3:
-                    V = float(row_data[1])
+                    V = float(row_data[1])*360/400
                     Hd = float(row_data[2])
                     Hp = StH + InstH + (Hd * np.cos(np.radians(V))) - PrismH
                     Hp = round(Hp, 3)

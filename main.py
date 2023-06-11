@@ -30,7 +30,6 @@ from methods.TrigonometricLevelling import TrigonometricLevelling
 from methods.PolarMethod import PolarMethod
 
 
-
 class Menu(QWidget):
 
     def __init__(self):
@@ -49,27 +48,25 @@ class Menu(QWidget):
         self.w.show()
 
     def interface(self):
-
         for m in get_monitors():
             continue
         grid = QGridLayout()
 
         GeometricLevellingButton = QPushButton("Trigonometric Levelling")
-        grid.addWidget(GeometricLevellingButton,0,0)
+        grid.addWidget(GeometricLevellingButton, 0, 0)
         GeometricLevellingButton.clicked.connect(self.OpenGeometricLevelling)
 
         PolarMethodButton = QPushButton("Polar method")
         grid.addWidget(PolarMethodButton, 0, 1)
         PolarMethodButton.clicked.connect(self.OpenPolarMethod)
 
-
-
         self.setLayout(grid)
         width = 800
         height = 600
-        self.setGeometry(int(m.width/2-width/2), int(m.height/2-height/2),width, height)
+        self.setGeometry(int(m.width / 2 - width / 2), int(m.height / 2 - height / 2), width, height)
         self.setWindowTitle("GeodesyApp")
         self.show()
+
 
 if __name__ == '__main__':
     import sys
