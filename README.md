@@ -8,7 +8,7 @@ Trigonometric Levelling - one of the types of leveling. The measurement of heigh
 The accuracy of determining the height difference using trigonometric leveling is higher than the accuracy of determining the difference using barometric leveling, and using modern precision instruments is comparable to the accuracy of determining this difference using geometric leveling.
 ![image](https://github.com/MDworecki404/GeodesyApp/assets/117952748/dbd46019-a026-4a14-9480-586e6fd5553c)
 
-Hp = HA + HI + AD * cos(Z) - h
+Hp = HA + HI + AD * cos(Z) - CD
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Polar Method - field detail measurement method. It consists in determining the length d of the target axis (distance) from the known control point to the removed point and the angle α between the control line side and the target axis.
 ![image](https://github.com/MDworecki404/GeodesyApp/assets/117952748/9fb6ebec-6d01-40b1-8ce6-56003c74c2e6)
